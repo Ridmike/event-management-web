@@ -4,12 +4,13 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { Button } from "@/components/common/Button";
 import { Input } from "@/components/common/Input";
 import { Card } from "@/components/common/Card";
 import { toast } from "react-hot-toast";
 import { ShieldCheck, Zap, Cpu, Info } from "lucide-react";
+import api from "@/lib/axios";
 
 const contactSchema = z.object({
   fullname: z.string().min(2, "Full name is required"),
@@ -36,13 +37,12 @@ export default function BookingPage() {
 
   const onSubmit = async (data: BookingFormValues) => {
     try {
-      // Logic for backend submission
-      console.log("Submitting to backend:", data);
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate API call
-      toast.success("Message sent successfully!");
+      await api.post("/contact", data);
+      toast.success("Booking inquiry sent successfully!");
       reset();
-    } catch (error) {
-      toast.error("Something went wrong. Please try again.");
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || "Something went wrong. Please try again.";
+      toast.error(errorMessage);
     }
   };
 

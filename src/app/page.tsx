@@ -1,6 +1,7 @@
 import { StatCard, FeatureCard, ProfileCard, EventCard } from "@/components/common/CardVariants";
 import { HeroSection, StatsSection } from "@/components/home/HeroSection";
 import { TestimonialsSection } from "@/components/home/Testimonials";
+import { NewsletterSection } from "@/components/home/NewsletterSection";
 import { EVENTS } from "@/constants/events";
 import { AtSign, Rocket, Link2, ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -45,36 +46,8 @@ export default function Home() {
         {/* Testimonials */}
         <TestimonialsSection />
 
-        {/* Mission & Team (Moved down for better flow) */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-1">
-             <StatCard value="500+" label="Global Events" />
-          </div>
-          <div className="md:col-span-2">
-            <FeatureCard 
-              title="Our Mission" 
-              description="To empower event organizers with high-performance tools that bridge the gap between physical experience and digital control."
-              icon={<Rocket size={24} />}
-            />
-          </div>
-        </section>
-
-        <section className="flex flex-col gap-8">
-          <h2 className="text-2xl font-bold border-l-4 border-primary pl-4">Our Leadership</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            <ProfileCard 
-              name="Alexander Vance" 
-              role="Founder & CEO" 
-              image="/team/vance.jpg"
-              socials={
-                <>
-                  <AtSign size={16} className="cursor-pointer hover:text-white transition-colors" />
-                  <Link2 size={16} className="cursor-pointer hover:text-white transition-colors" />
-                </>
-              }
-            />
-          </div>
-        </section>
+        {/* Newsletter Section */}
+        <NewsletterSection />
       </main>
     </div>
   );
