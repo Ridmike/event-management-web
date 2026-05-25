@@ -20,7 +20,7 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-2">
+    <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-2 bg-black">
       <div className="max-w-7xl mx-auto bg-[#0A0A0A]/80 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3 flex items-center justify-between shadow-2xl">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
