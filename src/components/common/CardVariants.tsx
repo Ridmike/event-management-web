@@ -51,8 +51,13 @@ interface ProfileCardProps {
 
 export const ProfileCard = ({ name, role, image, socials }: ProfileCardProps) => (
   <Card className="overflow-hidden border-none bg-transparent group">
-    <div className="relative aspect-4/5 overflow-hidden rounded-2xl mb-4 bg-[#1A1A1A]">
-      {/* Placeholder for actual Image component */}
+    <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-4 bg-[#1A1A1A]">
+      <Image
+        src={image}
+        alt={name}
+        fill
+        className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+      />
       <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
     </div>
     <div className="px-2">

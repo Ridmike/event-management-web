@@ -19,22 +19,22 @@ const contactSchema = z.object({
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
-type ContactFormValues = z.infer<typeof contactSchema>;
+type BookingFormValues = z.infer<typeof contactSchema>;
 
-export default function ContactPage() {
+export default function BookingPage() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<ContactFormValues>({
+  } = useForm<BookingFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       eventType: "",
     },
   });
 
-  const onSubmit = async (data: ContactFormValues) => {
+  const onSubmit = async (data: BookingFormValues) => {
     try {
       // Logic for backend submission
       console.log("Submitting to backend:", data);
