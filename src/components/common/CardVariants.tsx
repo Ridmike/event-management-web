@@ -1,5 +1,8 @@
+"use client";
+
 import * as React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { cn } from "@/utils/cn";
@@ -70,6 +73,7 @@ export const ProfileCard = ({ name, role, image, socials }: ProfileCardProps) =>
 
 // --- Event Card ---
 interface EventCardProps {
+  id?: string;
   title: string;
   description?: string;
   image: string;
@@ -79,10 +83,11 @@ interface EventCardProps {
   category?: string;
   variant?: "compact" | "overlay" | "full";
   className?: string;
-  onRegister?: () => void;
+  onRegister?: (e: React.MouseEvent) => void;
 }
 
 export const EventCard = ({ 
+  id,
   title, 
   description, 
   image, 
@@ -94,9 +99,24 @@ export const EventCard = ({
   className,
   onRegister
 }: EventCardProps) => {
+  const router = useRouter();
+
+  const handleCardClick = () => {
+    if (id) router.push(`/events/${id}`);
+  };
+
   if (variant === "overlay") {
     return (
-      <Card className={cn("relative aspect-video overflow-hidden group border-none", className)}>
+      <Card 
+        className={cn("relative aspect-video overflow-hidden group border-none cursor-pointer", className)}
+        onClick={handleCardClick}
+      >
+        <Image 
+          src={image} 
+          alt={title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+        />
         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10" />
         <div className="absolute bottom-6 left-6 z-20 flex flex-col gap-3">
           <h3 className="text-2xl font-bold text-white drop-shadow-md">{title}</h3>
@@ -107,7 +127,10 @@ export const EventCard = ({
   }
 
   return (
-    <Card className={cn("overflow-hidden group flex flex-col h-full bg-[#111111]", className)}>
+    <Card 
+      className={cn("overflow-hidden group flex flex-col h-full bg-[#111111] cursor-pointer", className)}
+      onClick={handleCardClick}
+    >
       <div className="relative aspect-16/10 overflow-hidden">
         {category && (
           <div className="absolute top-4 right-4 z-20">
@@ -119,7 +142,12 @@ export const EventCard = ({
              {date}
            </div>
         )}
-        <div className="bg-[#1A1A1A] w-full h-full group-hover:scale-105 transition-transform duration-500" />
+        <Image 
+          src={image} 
+          alt={title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+        />
       </div>
       
       <div className="p-6 flex flex-col flex-1 gap-4">
@@ -170,7 +198,10 @@ export const EventCard = ({
             size="sm" 
             className={variant === "full" ? "p-0 hover:bg-transparent hover:text-primary transition-colors h-auto" : "px-6"}
             rightIcon={variant === "full" ? <ArrowRight size={16} /> : undefined}
-            onClick={onRegister}
+            onClick={(e) => {
+              e.stopPropagation();
+              onRegister?.(e);
+            }}
           >
             {variant === "full" ? "Register Now" : "Register"}
           </Button>

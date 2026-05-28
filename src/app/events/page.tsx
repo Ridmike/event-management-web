@@ -67,6 +67,7 @@ export default function EventsPage() {
                 {filteredEvents.map((event) => (
                 <EventCard 
                     key={event.id}
+                    id={event.id}
                     title={event.title}
                     date={event.date}
                     location={event.location}
