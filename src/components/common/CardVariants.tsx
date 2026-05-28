@@ -79,6 +79,7 @@ interface EventCardProps {
   category?: string;
   variant?: "compact" | "overlay" | "full";
   className?: string;
+  onRegister?: () => void;
 }
 
 export const EventCard = ({ 
@@ -90,7 +91,8 @@ export const EventCard = ({
   price, 
   category,
   variant = "full",
-  className
+  className,
+  onRegister
 }: EventCardProps) => {
   if (variant === "overlay") {
     return (
@@ -168,6 +170,7 @@ export const EventCard = ({
             size="sm" 
             className={variant === "full" ? "p-0 hover:bg-transparent hover:text-primary transition-colors h-auto" : "px-6"}
             rightIcon={variant === "full" ? <ArrowRight size={16} /> : undefined}
+            onClick={onRegister}
           >
             {variant === "full" ? "Register Now" : "Register"}
           </Button>

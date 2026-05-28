@@ -1,15 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { EVENTS } from "@/constants/events";
+import { EVENTS, Event } from "@/constants/events";
 import { EventCard } from "@/components/common/CardVariants";
 import { Button } from "@/components/common/Button";
 import { Search, ChevronRight } from "lucide-react";
 import { cn } from "@/utils/cn";
+import { Modal } from "@/components/common/Modal";
+import { BookingForm } from "@/components/booking/BookingForm";
 
 export default function EventsPage() {
   const [filter, setFilter] = React.useState("ALL");
   const [search, setSearch] = React.useState("");
+  const [selectedEvent, setSelectedEvent] = React.useState<Event | null>(null);
 
   const categories = ["ALL", "TECH", "MUSIC", "BUSINESS", "ART"];
 
@@ -70,9 +73,23 @@ export default function EventsPage() {
                     price={event.price}
                     image={event.image}
                     variant="compact"
+                    onRegister={() => setSelectedEvent(event)}
                 />
                 ))}
             </div>
+
+            <Modal 
+              isOpen={!!selectedEvent} 
+              onClose={() => setSelectedEvent(null)}
+              title="Book Your Event"
+            >
+              {selectedEvent && (
+                <BookingForm 
+                  event={selectedEvent} 
+                  onSuccess={() => setSelectedEvent(null)} 
+                />
+              )}
+            </Modal>
 
             {filteredEvents.length === 0 && (
                 <div className="py-24 text-center">
